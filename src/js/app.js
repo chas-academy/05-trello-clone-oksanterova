@@ -74,7 +74,6 @@ const jtrello = (function () {
           click: function () {
             let title = $('#list-title').val();
             createColumn(title);
-            title = '';
             $(this).dialog("close");
           }
         },
@@ -86,6 +85,10 @@ const jtrello = (function () {
         }
       ]
     });
+  }
+
+  function sortCards() {
+      $('.list-cards').sortable({connectWith: '.list-cards'});
   }
 
   /*
@@ -133,7 +136,7 @@ const jtrello = (function () {
     captureDOMEls();
     createTabs();
     createDialogs();
-
+    sortCards();
     bindEvents();
   }
 
