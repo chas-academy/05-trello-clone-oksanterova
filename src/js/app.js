@@ -20,6 +20,7 @@ const jtrello = (function () {
   function captureDOMEls() {
     DOM.$board = $('.board');
     DOM.$listDialog = $('#list-creation-dialog');
+    DOM.$cardDialog = $('#card-dialog');
     DOM.$columns = $('.column');
     DOM.$lists = $('.list');
     DOM.$cards = $('.card');
@@ -85,6 +86,47 @@ const jtrello = (function () {
         }
       ]
     });
+
+    DOM.$cardDialog.dialog({
+      modal: true,
+      autoOpen: false,
+      width: 500,
+      height: 450,
+      show: {
+        effect: 'bounce',
+        times: 2,
+        duration: 300,
+        distance: 50
+      },
+      hide: {
+        effect: 'puff',
+        duration: 300
+      },
+      buttons: [{
+          text: "Ok",
+          click: function () {
+            $(this).dialog("close");
+          }
+        },
+        {
+          text: "Cancel",
+          click: function () {
+            $(this).dialog("close");
+          }
+        }
+      ]
+    });
+    DOM.$cards.click(function(){
+      DOM.$cardDialog.dialog("open");
+      $( function() {
+        $( "#tabs" ).tabs();
+      } );
+      $( function() {
+        $( "#datepicker" ).datepicker({
+          showAnim: "blind"
+        });
+      } );
+    })
   }
 
   function sortCards() {

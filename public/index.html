@@ -87,6 +87,31 @@
             <input type="text" name="title" id="list-title" placeholder="List title" />
         </form>
     </div>
+    <div id="card-dialog" title="Edit card">
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Task</a></li>
+                <li><a href="#tabs-2">Description</a></li>
+                <li><a href="#tabs-3">Date</a></li>
+            </ul>
+            <div id="tabs-1">
+                <form>
+                    <input type="text" name="title" id="card-title" placeholder="Enter task title" />
+                </form>
+            </div>
+            <div id="tabs-2">
+                <form>
+                    <input type="text" name="description" id="description" placeholder="Enter task description" />
+                </form>
+            </div>
+            <div id="tabs-3">
+                <p><input type="text" id="datepicker"
+                    placeholder="Choose due date">
+                </p>
+            </div>
+        </div>
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
