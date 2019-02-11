@@ -1,7 +1,10 @@
-import $ from 'jquery';
+import $ from "jquery";
 
-require('webpack-jquery-ui');
-import '../css/styles.css';
+require("webpack-jquery-ui");
+import "../css/styles.css";
+import {
+  debug
+} from "util";
 
 /**
  * jtrello
@@ -18,63 +21,60 @@ const jtrello = (function () {
 
   /* =================== Privata metoder nedan ================= */
   function captureDOMEls() {
-    DOM.$board = $('.board');
-    DOM.$listDialog = $('#list-creation-dialog');
-    DOM.$cardDialog = $('#card-dialog');
-    DOM.$columns = $('.column');
-    DOM.$lists = $('.list');
-    DOM.$cards = $('.card');
-
-    DOM.$newListButton = $('button#new-list');
-    DOM.$deleteListButton = $('.list-header > button.delete');
-
-    DOM.$newCardForm = $('form.new-card');
-    DOM.$deleteCardButton = $('.card > button.delete');
+    DOM.$board = $(".board");
+    DOM.$listDialog = $("#list-creation-dialog");
+    DOM.$cardDialog = $("#card-dialog");
+    DOM.$columns = $(".column");
+    DOM.$lists = $(".list");
+    DOM.$newListButton = $("button#new-list");
   }
 
-  function createTabs() {}
-
   function createColumn(title) {
-
     $(`<div class="column">
             <div class="list">
                 <div class="list-header">
-                    ${$('#list-title').val()}
-                    <button class="button delete">X</button>
+                    ${$("#list-title").val()}
+                    <button class="btn btn-light delete float-right">X</button>
                 </div>
                 <ul class="list-cards">
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
                 </ul>
+                <div class="add-new">
+                    <form class="new-card input-group mb-3" action="index.html">
+                        <input type="text" class="form-control card-title" placeholder="Please name the card">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>`
-    ).insertBefore("#new-list");
+        </div>`).insertBefore($(".column").last());
+
+    sortCards();
   }
 
-
   function createDialogs() {
+    $("#list-title-form").on("submit", function (e) {
+      e.preventDefault();
+    });
+
     DOM.$listDialog.dialog({
       modal: true,
       autoOpen: false,
       show: {
-        effect: 'bounce',
+        effect: "bounce",
         times: 2,
         duration: 300,
         distance: 50
       },
       hide: {
-        effect: 'puff',
+        effect: "puff",
         duration: 300
       },
       buttons: [{
           text: "Ok",
           click: function () {
-            let title = $('#list-title').val();
-            createColumn(title);
+            let listTitle = $("#list-title").val();
+            createColumn(listTitle);
             $(this).dialog("close");
           }
         },
@@ -93,13 +93,13 @@ const jtrello = (function () {
       width: 500,
       height: 450,
       show: {
-        effect: 'bounce',
+        effect: "bounce",
         times: 2,
         duration: 300,
         distance: 50
       },
       hide: {
-        effect: 'puff',
+        effect: "puff",
         duration: 300
       },
       buttons: [{
@@ -116,21 +116,21 @@ const jtrello = (function () {
         }
       ]
     });
-    DOM.$cards.click(function(){
-      DOM.$cardDialog.dialog("open");
-      $( function() {
-        $( "#tabs" ).tabs();
-      } );
-      $( function() {
-        $( "#datepicker" ).datepicker({
-          showAnim: "blind"
-        });
-      } );
-    })
+
+    $("#tabs").tabs();
+    $("#datepicker").datepicker({
+      showAnim: "blind"
+    });
   }
 
   function sortCards() {
-      $('.list-cards').sortable({connectWith: '.list-cards'});
+    $(".list-cards").sortable({
+      connectWith: ".list-cards"
+    });
+  }
+
+  function openCardDialog() {
+    DOM.$cardDialog.dialog("open");
   }
 
   /*
@@ -138,32 +138,45 @@ const jtrello = (function () {
    *  createList, deleteList, createCard och deleteCard etc.
    */
   function bindEvents() {
-    DOM.$newListButton.on('click', createList);
-    DOM.$deleteListButton.on('click', deleteList);
+    DOM.$newListButton.on("click", createList);
 
-    DOM.$newCardForm.on('submit', createCard);
-    DOM.$deleteCardButton.on('click', deleteCard);
+    $(document).on("submit", ".new-card", createCard);
+    $(document).on("click", ".list-header button.delete", deleteList);
+    $(document).on("click", ".card button.delete", deleteCard);
+
+    $(document).on("click", ".card", openCardDialog);
   }
-
   /* ============== Metoder för att hantera listor nedan ============== */
-  function createList() {
+  function createList(event) {
     event.preventDefault();
-    console.log("This should create a new list");
     DOM.$listDialog.dialog("open");
+    $("#list-title").val('');
   }
 
   function deleteList() {
-    $(this).closest('.column').remove();
+    $(this)
+      .closest(".column")
+      .remove();
   }
 
   /* =========== Metoder för att hantera kort i listor nedan =========== */
   function createCard(event) {
     event.preventDefault();
-    console.log("This should create a new card");
+    let cardTitle = $(this).children(".card-title");
+    let cardLi =
+      `<li class="card">
+        <span class="card-text">${cardTitle.val()}</span>
+        <button class="button delete">X</button>
+      </li>`;
+
+    $(this).closest(".list").children(".list-cards").append(cardLi);
+    cardTitle.val('');
   }
 
   function deleteCard() {
-    console.log("This should delete the card you clicked on");
+    $(this)
+      .closest(".card")
+      .remove();
   }
 
   // Metod för att rita ut element i DOM:en
@@ -173,13 +186,12 @@ const jtrello = (function () {
 
   // Init metod som körs först
   function init() {
-    console.log(':::: Initializing JTrello ::::');
+    console.log(":::: Initializing JTrello ::::");
     // Förslag på privata metoder
     captureDOMEls();
-    createTabs();
+    bindEvents();
     createDialogs();
     sortCards();
-    bindEvents();
   }
 
   // All kod här

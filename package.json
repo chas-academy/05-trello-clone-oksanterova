@@ -4,7 +4,7 @@
   "description": "Hello there, and welcome to this assignment where you'll be making a clone\r of the popular web application [Trello](https://trello.com) which is used to\r create boards, lists and cards for handling basic planning.",
   "main": "assets/js/app.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --mode development --config webpack.config.js",
+    "start": "webpack-dev-server --hot -d --config webpack.config.js",
     "build": "NODE_ENV=production webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -15,6 +15,7 @@
         <div class="container">
             <h1 class="display-4">jTrello</h1>
             <p class="lead">Welcome to the leanest Trello clone out there. 😎 No more distractions! Just do it! ✔️</p>
+            <button id="customize" class="btn btn-lg btn-primary">Customize</button>
         </div>
     </div>
     <div class="board">
@@ -22,60 +23,54 @@
             <div class="list">
                 <div class="list-header">
                     Todo
-                    <button class="button delete">X</button>
+                    <button class="btn btn-light delete float-right">X</button>
                 </div>
                 <ul class="list-cards">
-                    <li class="card">
-                        Card #1
-                        <button class="button delete">X</button>
-                    </li>
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
                 </ul>
+                <div class="add-new">
+                    <form class="new-card input-group mb-3" action="index.html">
+                        <input type="text" class="form-control card-title" placeholder="Please name the card">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="column">
             <div class="list">
                 <div class="list-header">
                     Doing
-                    <button class="button delete">X</button>
+                    <button class="btn btn-light delete float-right">X</button>
                 </div>
                 <ul class="list-cards">
-                    <li class="card">
-                        Card #2
-                        <button class="button delete">X</button>
-                    </li>
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
                 </ul>
+                <div class="add-new">
+                    <form class="new-card input-group mb-3" action="index.html">
+                        <input type="text" class="form-control card-title" placeholder="Please name the card">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="column">
             <div class="list">
                 <div class="list-header">
                     Done
-                    <button class="button delete">X</button>
+                    <button class="btn btn-light delete float-right">X</button>
                 </div>
                 <ul class="list-cards">
-                    <li class="card">
-                        Card #3
-                        <button class="button delete">X</button>
-                    </li>
-                    <li class="add-new">
-                        <form class="new-card" action="index.html">
-                            <input type="text" name="title" placeholder="Please name the card" />
-                            <button class="button add">Add new card</button>
-                        </form>
-                    </li>
                 </ul>
+                <div class="add-new">
+                    <form class="new-card input-group mb-3" action="index.html">
+                        <input type="text" class="form-control card-title" placeholder="Please name the card">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="column">
@@ -83,7 +78,7 @@
         </div>
     </div>
     <div id="list-creation-dialog" title="Create new list" style="height: 40px">
-        <form>
+        <form id="list-title-form">
             <input type="text" name="title" id="list-title" placeholder="List title" />
         </form>
     </div>
@@ -96,7 +91,7 @@
             </ul>
             <div id="tabs-1">
                 <form>
-                    <input type="text" name="title" id="card-title" placeholder="Enter task title" />
+                    <input type="text" name="title" class="card-title" placeholder="Enter task title" />
                 </form>
             </div>
             <div id="tabs-2">
@@ -105,8 +100,7 @@
                 </form>
             </div>
             <div id="tabs-3">
-                <p><input type="text" id="datepicker"
-                    placeholder="Choose due date">
+                <p><input type="text" id="datepicker" placeholder="Choose due date">
                 </p>
             </div>
         </div>
