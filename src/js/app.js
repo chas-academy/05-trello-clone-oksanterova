@@ -131,6 +131,9 @@ const jtrello = (function () {
 
   function openCardDialog() {
     DOM.$cardDialog.dialog("open");
+    let cardInput = $(this).children(".card-text").text();
+    // debugger;
+    $("#card-dialog-input").val(cardInput);
   }
 
   /*
@@ -173,7 +176,9 @@ const jtrello = (function () {
     cardTitle.val('');
   }
 
-  function deleteCard() {
+  function deleteCard(event) {
+    event.preventDefault();
+    event.stopPropagation();
     $(this)
       .closest(".card")
       .remove();
