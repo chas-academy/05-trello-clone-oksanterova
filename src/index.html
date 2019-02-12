@@ -84,25 +84,25 @@
     </div>
     <div id="card-dialog" title="Edit card">
         <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">Task</a></li>
-                <li><a href="#tabs-2">Description</a></li>
-                <li><a href="#tabs-3">Date</a></li>
-            </ul>
-            <div id="tabs-1">
-                <form>
+            <form id="card-dialog-form">
+                <ul>
+                    <li><a href="#tabs-1">Task</a></li>
+                    <li><a href="#tabs-2">Description</a></li>
+                    <li><a href="#tabs-3">Date</a></li>
+                </ul>
+                <div id="tabs-1">
                     <input type="text" name="title" id="card-dialog-input" placeholder="Enter task title" />
-                </form>
-            </div>
-            <div id="tabs-2">
-                <form>
-                    <input type="text" name="description" id="description" placeholder="Enter task description" />
-                </form>
-            </div>
-            <div id="tabs-3">
-                <p><input type="text" id="datepicker" placeholder="Choose due date">
-                </p>
-            </div>
+                </div>
+                <div id="tabs-2">
+                    <form>
+                        <input type="text" name="description" id="card-dialog-description" placeholder="Enter task description" />
+                    </form>
+                </div>
+                <div id="tabs-3">
+                    <p><input type="text" id="datepicker" placeholder="Choose due date">
+                    </p>
+                </div>
+            </form>
         </div>
 
     </div>

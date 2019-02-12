@@ -89,9 +89,8 @@ const jtrello = (function () {
   }
 
   function createDialogs() {
-    $("#list-title-form").on("submit", function (e) {
-      e.preventDefault();
-    });
+    $("#list-title-form").submit(e => e.preventDefault());
+    $("#card-dialog-form").submit(e => e.preventDefault());
 
     DOM.$listDialog.dialog({
       modal: true,
@@ -141,6 +140,13 @@ const jtrello = (function () {
       buttons: [{
           text: "Ok",
           click: function () {
+            let card = $(this).dialog("option", "card");
+            let text = $("#card-dialog-input").val();
+            let description = $("#card-dialog-description").val();
+
+            card.children(".card-text").text(text);
+            card.children(".card-description").text(description);
+
             $(this).dialog("close");
           }
         },
@@ -166,10 +172,13 @@ const jtrello = (function () {
   }
 
   function openCardDialog() {
-    DOM.$cardDialog.dialog("open");
-    let cardInput = $(this).children(".card-text").text();
-    // debugger;
-    $("#card-dialog-input").val(cardInput);
+    DOM.$cardDialog.dialog("option", "card", $(this)).dialog("open");
+
+    let text = $(this).children(".card-text").text();
+    let description = $(this).children(".card-description").text();
+
+    $("#card-dialog-input").val(text);
+    $("#card-dialog-description").val(description);
   }
 
   /*
@@ -202,14 +211,18 @@ const jtrello = (function () {
   function createCard(event) {
     event.preventDefault();
     let cardTitle = $(this).children(".card-title");
-    let cardLi =
-      `<li class="card">
+
+    if (cardTitle.val()) {
+      let cardLi =
+        `<li class="card">
         <span class="card-text">${cardTitle.val()}</span>
+        <span class="card-description"></span>
         <button class="button delete">X</button>
       </li>`;
 
-    $(this).closest(".list").children(".list-cards").append(cardLi);
-    cardTitle.val('');
+      $(this).closest(".list").children(".list-cards").append(cardLi);
+      cardTitle.val('');
+    }
   }
 
   function deleteCard(event) {

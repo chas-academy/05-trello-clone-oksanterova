@@ -121,6 +121,16 @@ input {
   padding: 0;
 }
 
+.card .card-text {
+  display: block;
+}
+
+.card .card-description {
+  display: block;
+  overflow: hidden;
+  color: #a0a0a0;
+}
+
 .ui-dialog {
   background: #e2e4e6;
   border-radius: 3px;
